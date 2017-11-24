@@ -1,0 +1,14 @@
+version: "3.4"
+services:
+  thinkphp:
+    image: "php5-apache:0.1"
+    restart: always
+    ports:
+      - "7011:80"
+    volumes:
+      - "$PWD/www:/var/www/html"
+      - "$PWD/upload:/upload"
+      - "$PWD/log:/var/log/apache2"
+    environment:
+      - WWW_DATA_USERID=1001
+
