@@ -31,6 +31,10 @@ RUN apt-get update && apt-get -y install \
 	tzdata \
 	ffmpeg
 
+# 添加 apache 模块
+RUN a2enmod rewrite
+ADD apache2.conf /etc/apache2
+
 # 设置权限
 
 # 设置 timezone
