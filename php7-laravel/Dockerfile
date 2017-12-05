@@ -26,6 +26,7 @@ RUN apt-get update && apt-get -y install \
 	php7.1-cli \
 	php7.1-amqp \
 	php7.1-zip \
+	php7.1-mbstring \
 	tzdata
 # 设置权限
 
@@ -33,7 +34,11 @@ RUN apt-get update && apt-get -y install \
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
+# 清除缓存
 RUN apt-get clean
 
+# 安装 Laravel
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 
