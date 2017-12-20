@@ -41,4 +41,8 @@ RUN apt-get clean
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
+# 创建一个叫 laravel 的用户供使用
+RUN useradd laravel -m -p phpapp2017
+
+
 
