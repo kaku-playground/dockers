@@ -1,0 +1,10 @@
+version: "3.4"
+services:
+  laravel:
+    image: "php7-laravel:0.3"
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - "$PWD/app:/app"
+    command: su - laravel -c "cd /app/demo && php artisan serve --host=0.0.0.0 --port=8000"

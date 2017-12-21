@@ -1,7 +1,6 @@
 #
 # Author Guo Yu
 #
-
 FROM ubuntu:17.10
 
 # Install packages
@@ -27,7 +26,9 @@ RUN apt-get update && apt-get -y install \
 	php7.1-amqp \
 	php7.1-zip \
 	php7.1-mbstring \
-	tzdata
+	php7.1-fpm \
+	tzdata \
+	nginx
 # 设置权限
 
 # Set timezone
@@ -37,8 +38,13 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 # 清除缓存
 RUN apt-get clean
 
-# 安装 Laravel
+# 安装 Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+# 设置 PHP-FPM
+RUN echo "cgi.fix_pathinfo=0" >> /etc/php/7.1/fpm/php.ini
+
+
 
 
