@@ -45,6 +45,31 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 # 设置 PHP-FPM
 RUN echo "cgi.fix_pathinfo=0" >> /etc/php/7.1/fpm/php.ini
 
+# 创建一个叫 laravel 的用户供使用
+RUN useradd laravel -m -p phpapp2017
+
+# 配置 Nginx 环境
+RUN rm -rf ./etc/nginx/sites-enabled/**
+ADD nginx-laravel-conf /etc/nginx/sites-available/laravel
+RUN ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/default
+
+RUN mkdir -p /app
+RUN mkdir -p /app_log
+
+# 转发 Log
+RUN ln -sf /dev/stdout /app_log/access.log
+RUN ln -sf /dev/stderr /app_log/error.log
+
+EXPOSE 80
+STOPSIGNAL SIGTERM
+
+CMD ["nginx", "-g", "daemon off;"]
+
+# 使用如下命令创建
+# docker run -it --rm -v $PWD/app:/app php7-laravel:xx /bin/bash
+# su - laravel
+# composer create-project laravel/laravel /app 5.5.22
+#
 
 
 
