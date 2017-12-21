@@ -48,20 +48,29 @@ RUN echo "cgi.fix_pathinfo=0" >> /etc/php/7.1/fpm/php.ini
 # 创建一个叫 laravel 的用户供使用
 RUN useradd laravel -m -p phpapp2017
 
+# 配置 Php7-fpm
+# /etc/php/7.1/fpm/pool.d
+
 # 配置 Nginx 环境
 RUN rm -rf ./etc/nginx/sites-enabled/**
 ADD nginx-laravel-conf /etc/nginx/sites-available/laravel
 RUN ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/default
 
 RUN mkdir -p /app
-RUN mkdir -p /app_log
+RUN chown -R laravel:laravel /app
+
+ADD www.conf /etc/php/7.1/fpm/pool.d/www.conf
+
+#RUN mkdir -p /app_log
 
 # 转发 Log
-RUN ln -sf /dev/stdout /app_log/access.log
-RUN ln -sf /dev/stderr /app_log/error.log
+#RUN ln -sf /dev/stdout /app_log/access.log
+#RUN ln -sf /dev/stderr /app_log/error.log
 
 EXPOSE 80
 STOPSIGNAL SIGTERM
+
+CMD ["/etc/init.d/php7.1-fpm", "start"]
 
 CMD ["nginx", "-g", "daemon off;"]
 
