@@ -60,19 +60,15 @@ RUN mkdir -p /app
 RUN chown -R laravel:laravel /app
 
 ADD www.conf /etc/php/7.1/fpm/pool.d/www.conf
-
-#RUN mkdir -p /app_log
-
-# 转发 Log
-#RUN ln -sf /dev/stdout /app_log/access.log
-#RUN ln -sf /dev/stderr /app_log/error.log
+ADD start_service.sh /start_service.sh
 
 EXPOSE 80
 STOPSIGNAL SIGTERM
 
-CMD ["/etc/init.d/php7.1-fpm", "start"]
+#CMD ["/etc/init.d/php7.1-fpm", "start"]
+#CMD ["nginx", "-g", "daemon off;"]
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "/start_service.sh"]
 
 # 使用如下命令创建
 # docker run -it --rm -v $PWD/app:/app php7-laravel:xx /bin/bash
