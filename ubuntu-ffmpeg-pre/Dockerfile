@@ -91,7 +91,6 @@ make && \
 make install
 
 RUN rm -rf ~/ffmpeg_sources
-
 RUN apt-get clean
 
 RUN mkdir -p ~/ffmpeg_sources ~/bin
