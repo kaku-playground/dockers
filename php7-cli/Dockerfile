@@ -32,8 +32,19 @@ RUN apt-get update && apt-get -y install \
 # Set timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
-
 RUN apt-get clean
+
+# 安装 PHP composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+# 添加一个普通用户
+RUN useradd phpapp -m -p phpapp2017
+RUN usermod -u 2000 phpapp
+RUN groupmod -g 2000 phpapp
+RUN mkdir -p /app
+RUN chown -R phpapp:phpapp /app
+
 
 
 
