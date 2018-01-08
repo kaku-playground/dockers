@@ -2,9 +2,28 @@ version: "3.4"
 services:
   php7-nginx-laravel:
     image: "php7-nginx:0.1"
+    container_name: "laravel"
     restart: always
     ports:
-      - "8000:80"
+      - "13305:80"
     volumes:
-      - "$PWD/app:/app"
-      - $PWD/log:/var/log/nginx/"
+      - $PWD/app:/app
+      - $PWD/app_log:/var/log/nginx/
+    links:
+      - laravel-db:db
+    environment:
+      - NGINX_USERID=1001
+      - NGINX_GROUPID=1001
+
+  laravel-db:
+    image: "mysql:5.7.20"
+    container_name: "laravel-db"
+    restart: always
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "kaKu@1503"
+    volumes:
+      - "$PWD/db/data:/var/lib/mysql"
+      - "$PWD/db/log:/var/log/mysql"
+      - "$PWD/db_conf:/etc/mysql/conf.d"

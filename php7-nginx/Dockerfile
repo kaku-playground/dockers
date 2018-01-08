@@ -46,18 +46,18 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN echo "cgi.fix_pathinfo=0" >> /etc/php/7.1/fpm/php.ini
 
 # 创建一个叫 laravel 的用户供使用
-RUN useradd laravel -m -p phpapp2017
+RUN useradd phpapp -m -p phpapp2018
 
 # 配置 Php7-fpm
 # /etc/php/7.1/fpm/pool.d
 
 # 配置 Nginx 环境
 RUN rm -rf ./etc/nginx/sites-enabled/**
-ADD nginx-laravel-conf /etc/nginx/sites-available/laravel
-RUN ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/default
+ADD nginx-phpapp-conf /etc/nginx/sites-available/nginx-phpapp-conf
+RUN ln -s /etc/nginx/sites-available/nginx-phpapp-conf /etc/nginx/sites-enabled/default
 
 RUN mkdir -p /app
-RUN chown -R laravel:laravel /app
+RUN chown -R phpapp:phpapp /app
 
 ADD www.conf /etc/php/7.1/fpm/pool.d/www.conf
 ADD start_service.sh /start_service.sh
@@ -65,16 +65,5 @@ ADD start_service.sh /start_service.sh
 EXPOSE 80
 STOPSIGNAL SIGTERM
 
-#CMD ["/etc/init.d/php7.1-fpm", "start"]
-#CMD ["nginx", "-g", "daemon off;"]
-
 CMD ["sh", "/start_service.sh"]
-
-# 使用如下命令创建
-# docker run -it --rm -v $PWD/app:/app php7-laravel:xx /bin/bash
-# su - laravel
-# composer create-project laravel/laravel /app 5.5.22
-#
-
-
 
