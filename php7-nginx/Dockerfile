@@ -31,7 +31,7 @@ RUN apt-get update && apt-get -y install \
 	nginx
 # 设置权限
 
-# Set timezone
+# 设置时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
