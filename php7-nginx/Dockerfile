@@ -65,5 +65,5 @@ ADD start_service.sh /start_service.sh
 EXPOSE 80
 STOPSIGNAL SIGTERM
 
-CMD ["sh", "/start_service.sh"]
+CMD ["bash", "/start_service.sh"]
 

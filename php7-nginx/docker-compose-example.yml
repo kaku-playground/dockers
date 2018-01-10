@@ -26,4 +26,4 @@ services:
     volumes:
       - "$PWD/db/data:/var/lib/mysql"
       - "$PWD/db/log:/var/log/mysql"
-      - "$PWD/db_conf:/etc/mysql/conf.d"
+      - "$PWD/db/conf:/etc/mysql/conf.d"
