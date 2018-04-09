@@ -1,7 +1,7 @@
 #
 # Author Guo Yu
 
-FROM php:7.1.11-cli-jessie
+FROM php:7.2.4-cli
 
 # 安装 Swoole
 RUN pecl install swoole
