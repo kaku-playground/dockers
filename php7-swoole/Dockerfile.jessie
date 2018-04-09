@@ -1,0 +1,19 @@
+#
+# Author Guo Yu
+
+FROM php:7.1.11-cli-jessie
+
+# 安装 Swoole
+RUN pecl install swoole
+RUN pecl clear-cache
+
+ADD ./php.ini /usr/local/etc/php/conf.d/php.ini
+
+# 设置时区
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+
+# 添加一个普通用户
+RUN useradd phpapp -m -p phpapp2018
+
+

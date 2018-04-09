@@ -26,6 +26,7 @@ RUN apt-get update && apt-get -y install \
 	php7.1-cli \
 	php7.1-amqp \
 	php7.1-zip \
+	php7.1-dev \
 	tzdata
 # 设置权限
 
@@ -39,12 +40,12 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 # 添加一个普通用户
-RUN useradd phpapp -m -p phpapp2017
-RUN usermod -u 2000 phpapp
-RUN groupmod -g 2000 phpapp
-RUN mkdir -p /app
-RUN chown -R phpapp:phpapp /app
+RUN useradd phpapp -m -p phpapp2018
 
+# 清除缓存
+RUN apt-get clean
 
-
+# 安装 Composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
