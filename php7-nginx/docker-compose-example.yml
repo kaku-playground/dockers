@@ -22,7 +22,7 @@ services:
     ports:
       - "13306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: "kaKu@1503"
+      MYSQL_ROOT_PASSWORD: "dbpassword"
     volumes:
       - "$PWD/db/data:/var/lib/mysql"
       - "$PWD/db/log:/var/log/mysql"
