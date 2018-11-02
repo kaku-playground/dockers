@@ -32,6 +32,7 @@ RUN apt-get -y install \
 	php7.2-zip \
 	php7.2-mbstring \
 	php7.2-fpm \
+	unzip \
 	nginx
 
 # 清除缓存

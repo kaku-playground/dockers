@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   php7-nginx-laravel:
-    image: "php7-nginx:0.1"
+    image: "php7-nginx:1.0"
     container_name: "laravel"
     restart: always
     ports:
