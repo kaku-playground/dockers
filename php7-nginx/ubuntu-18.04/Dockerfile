@@ -3,7 +3,7 @@
 #
 FROM ubuntu:18.04
 
-RUN RUN apt-get update && apt-get -y install tzdata
+RUN apt-get update && apt-get -y install tzdata
 
 # 设置时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
