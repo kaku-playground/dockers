@@ -42,7 +42,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 # 设置 PHP-FPM
-RUN echo "cgi.fix_pathinfo=0" >> /etc/php/7.1/fpm/php.ini
+RUN echo "cgi.fix_pathinfo=0" >> /etc/php/7.2/fpm/php.ini
 
 # 创建一个叫 laravel 的用户供使用
 RUN useradd phpapp -m -p pHp@1995
