@@ -5,7 +5,7 @@ FROM debian:stretch
 
 ADD sources.list /etc/apt/
 
-RUN apt-get update && apt-get -y install tzdata gnupg2
+RUN apt-get update && apt-get install -y tzdata gnupg2
 
 # 设置时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
@@ -16,5 +16,5 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc
 ADD ACCC4CF8.asc /opt/
 RUN cat /opt/ACCC4CF8.asc | apt-key add -
 RUN rm -rf /opt/ACCC4CF8.asc
-RUN apt-get update
+RUN apt-get update && apt-get install -y postgresql-11
 
