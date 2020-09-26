@@ -13,9 +13,9 @@ RUN apt-get update
 RUN apt-get install -y openjdk-11-jdk-headless
 
 # 安装 pyspark
-RUN mkdir -p ~/.pip
-ADD pip.conf ~/.pip
-RUN pip install pyspark==3.0.1
+RUN mkdir -p /root/.pip
+ADD pip.conf /root/.pip
+RUN pip install pyspark==3.0.1 -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 安装 Spark
 RUN wget https://mirror.bit.edu.cn/apache/spark/spark-3.0.1/spark-3.0.1-bin-hadoop3.2.tgz
